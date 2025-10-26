@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">   
+    <link rel="stylesheet" href="./css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Memory Game</h2>
+        <div class="Game"></div>
+        <butto class="reset" onclick="window.location.reload();">Reset game</button>
+    </div>
+    <script>
+        const emojis = ['🐶', '🐶', '🐱', '🐱', '🦊', '🦊', '🐻', '🐻', '🐼', '🐼', '🐨', '🐨', ' 🐯', ' 🐯', '🦁', '🦁'];
+        var shuf_emojis = emojis.sort(() => (Math.random() > .5) ? 2 : -1);
+        for (var i = 0; i < emojis.length; i++) {
+            let box = document.createElement('div');
+            box.className = 'item';
+            box.innerHTML = shuf_emojis[i]
+            box.onclick = function() {
+                this.classList.add('box0pen');
+                setTimeout(function() {
+                    if(document.querySelectorAll('.box0pen').length >1 ) {
+                        if(document.querySelectorAll('.box0pen')[0].innerHTML == document.querySelectorAll('.box0pen')[1].innerHTML) {
+                            document.querySelectorAll('.box0pen')[0].classList.add('boxMatch');
+                            document.querySelectorAll('.box0pen')[1].classList.add('boxMatch');
+                            document.querySelectorAll('.box0pen')[1].classList.remove('box0pen');
+                            document.querySelectorAll('.box0pen')[0].classList.remove('box0pen');
+                            if(document.querySelectorAll('.boxMatch').length == emojis.length) {
+                                alert('You win!');
+                            }
+                        }
+                        else {
+                            document.querySelectorAll('.box0pen')[1].classList.remove('box0pen');
+                            document.querySelectorAll('.box0pen')[0].classList.remove('box0pen');
+                        }
+                    }
+                }, 500);
+            }
+            document.querySelector('.Game').appendChild(box);
+        }
+    </script>
+</body>
+</html>
